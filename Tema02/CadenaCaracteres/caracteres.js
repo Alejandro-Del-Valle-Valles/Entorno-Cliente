@@ -10,10 +10,12 @@ if(CHECK_BTN) {
         var isNameCorrect =checkName();
         var isAgeCorrect = checkAge();
         if(isNameCorrect) {
+            NAME_DIV.classList = '';
             NAME_DIV.classList.add('correct');
             NAME_DIV.innerHTML = 'El nombre es correcto.';
         }
         if(isAgeCorrect) {
+            AGE_DIV.classList = '';
             AGE_DIV.classList.add('correct');
             AGE_DIV.innerHTML = 'La edad es correcta.';
         }
@@ -41,7 +43,11 @@ function checkName() {
 
     if(errorsLocations.length != 0) {
         NAME_DIV.classList .add('incorrect');
-        NAME_DIV.innerHTML = `Hay un error en el caracter o caracteres número ${errorsLocations.values} del nombre.`;
+        NAME_DIV.innerHTML = 'Hay un error en el caracter o caracteres número ';
+        errorsLocations.forEach(v => {
+            NAME_DIV.innerHTML += `${v},`;
+        });
+        NAME_DIV.innerHTML += ' del texto.';
         return false;
     }
 
@@ -49,7 +55,12 @@ function checkName() {
 }
 
 function checkAge() {
-    if(isNaN(AGE_IN.value.trim())) {
+    if(AGE_IN.value.trim() === '') {
+        AGE_DIV.classList.add('incorrect');
+        AGE_DIV.innerHTML = 'La edad no puede estar vacía.';
+        return false;
+    }
+    if(isNaN(AGE_IN.value)) {
         AGE_DIV.classList.add('incorrect');
         AGE_DIV.innerHTML = 'La edad debe ser un número.';
         return false;
