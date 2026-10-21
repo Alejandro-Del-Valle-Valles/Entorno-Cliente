@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Máquina de Escribir Simple</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    Introduzca el texto a mostrar: <!-- <input type="text" id="maquina"/></br>--><br>
+	<div id="text-div"><textarea rows=23 cols=34 id="text"></textarea>	<input type="button" value="Mostrar efecto" id="show"/></div>
+	<div id="timer-div">introduzca valor del temporizador: <input type="text" id="timer">	<input type="button" value="Cambiar temporizador" id="change-time"/></div>
+    <div id="error" hidden>Se ha introducido un caracter no numérico o inferior a 0</div>	
+    <!-- Aquí se mostrará el texto -->
+    <div class="container" id="screen"><span id="machine"></span><span class="cursor"></span></div>    
+</body>
+<script src="machine.js"></script>
+</html>
+<!-- Author Lua del Valle -->
