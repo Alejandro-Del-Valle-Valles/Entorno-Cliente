@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Array de Números</title>
+</head>
+<body>
+    <!-- Number -->
+    <h1>Numero: <input type="text" id="number"><br></h1>
+
+    <!-- Navigation -->
+    <input type="button" value="Primera" id="first">
+    <input type="button" value="<< Anterior" id="previous">
+    <input type="button" value="Siguiente >>" id="next">
+    <input type="button" value="Ultima" id="last"><br>
+
+    <!-- Actions -->
+    <input type="button" value="Alta" id="register">
+    <input type="button" value="Baja" id="erase">
+    <input type="button" value="Modificar" id="update">
+    <input type="button" value="Listado" id="list">
+    <input type="button" value="Aceptar" id="accept" hidden>
+    <input type="button" value="Cancelar" id="cancel" hidden>
+
+    <!-- Data -->
+    <h2><div id="array"></div> Índice: <div id="index"></div> Posición: <div id="position"></div></h2>
+    <!-- Asc -->
+    <h2>Orden Ascendente</h2>
+    <h2><div id="arr-asc"></div></h2><br>
+    <!-- Des -->
+    <h2>Orden Descendente</h2>
+    <h2><div id="arr-des"></div></h2>
+
+    <!-- Error -->
+    <h2 id="error" hidden>El número contiene letras, debe ser un número decimal entero.</h2>
+</body>
+<script src="numbers.js" defer></script>
+</html>
