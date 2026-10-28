@@ -28,9 +28,7 @@ if(FIRST_BTN) {
     FIRST_BTN.addEventListener('click', () => {
         if(numbers.length > 0) {
             index = 0;
-            NUMBER_IN.value = numbers[index];
-            NUMBER_INDEX_DIV.innerHTML = index;
-            NUMBER_POSITION_DIV.innerHTML = index + 1;
+            updateIndexPositionDivs();
         }
     });
 }
@@ -40,9 +38,7 @@ if(PREVIOUS_BTN) {
         if(numbers.length > 0) {
             index--;
             if(index < 0) index = numbers.length - 1;
-            NUMBER_IN.value = numbers[index];
-            NUMBER_INDEX_DIV.innerHTML = index;
-            NUMBER_POSITION_DIV.innerHTML = index + 1;
+            updateIndexPositionDivs();
         }
     });
 }
@@ -52,9 +48,7 @@ if(NEXT_BTN) {
         if(numbers.length > 0) {
             index++;
             if(index > numbers.length - 1) index = 0;
-            NUMBER_IN.value = numbers[index];
-            NUMBER_INDEX_DIV.innerHTML = index;
-            NUMBER_POSITION_DIV.innerHTML = index + 1;
+            updateIndexPositionDivs();
         }
     });
 }
@@ -63,9 +57,7 @@ if(LAST_BTN) {
     LAST_BTN.addEventListener('click', () => {
         if(numbers.length > 0) {
             index = numbers.length - 1;
-            NUMBER_IN.value = numbers[index];
-            NUMBER_INDEX_DIV.innerHTML = index;
-            NUMBER_POSITION_DIV.innerHTML = index + 1;
+            updateIndexPositionDivs();
         }
     });
 }
@@ -77,8 +69,7 @@ if(LAST_BTN) {
 if(REGISTER_BTN) {
     REGISTER_BTN.addEventListener('click', () => {
         disableAllButtons();
-        ACCEPT_BTN.hidden = false;
-        CANCEL_BTN.hidden = false;
+        enableAcceptCancelBtns();
         currentAction = 0; //Register value
     });
 }
@@ -89,6 +80,7 @@ if(REGISTER_BTN) {
 if(ERASE_BTN) {
     ERASE_BTN.addEventListener('click', () => {
         disableModifications();
+        enableAcceptCancelBtns();
         currentAction = 1; //Erase value
     });
 }
@@ -99,6 +91,7 @@ if(ERASE_BTN) {
 if(UPDATE_BTN) {
     UPDATE_BTN.addEventListener('click', () => {
         disableModifications();
+        enableAcceptCancelBtns();
         currentAction = 2; //Update value
     });
 }
@@ -107,9 +100,7 @@ if(UPDATE_BTN) {
  * Open a new window with a list of the number on the array, unordered, and ordered asc and desc
  */
 if(LIST_BTN) {
-    LIST_BTN.addEventListener('click', () => {
-
-    });
+    LIST_BTN.addEventListener('click', buildTableWindows);
 }
 
 /**
@@ -125,13 +116,25 @@ if(ACCEPT_BTN) {
         }
         switch(currentAction) {
             case 0:
-                //Register
+                numbers.push(number);
+                updateArrayDiv();
+                enableAllButtons();
+                index = numbers.length - 1;
+                updateIndexPositionDivs();
                 break;
             case 1:
-                //Erase
+                numbers.splice(index, 1);
+                if(index > numbers.length - 1 ) index = numbers.length - 1 > 0 ? numbers.length - 1 : 0;
+                updateArrayDiv();
+                updateIndexPositionDivs();
+                enableAllButtons();
                 break;
             case 2:
-                //Update
+                numbers[index] = number;
+                if(index > numbers.length - 1 ) index = numbers.length - 1 > 0 ? numbers.length - 1 : 0;
+                updateArrayDiv();
+                updateIndexPositionDivs();
+                enableAllButtons();
                 break;
         }
     });
@@ -140,14 +143,54 @@ if(ACCEPT_BTN) {
 /**
  * Cancel the current action
  */
-if(CANCEL_BTN) CANCEL_BTN.addEventListener('click', enableAllButtons());
+if(CANCEL_BTN) CANCEL_BTN.addEventListener('click', enableAllButtons);
 
 
 /**
  * Check if the input number is a decimal number.
  * @returns Number integer or undefined if ir's not a decimal number.
  */
-const checkNumber = () => NUMBER_IN.value.match(/[0-9]/) ? parseInt(number) : undefined;
+const checkNumber = () => NUMBER_IN.value.match(/^\d+$/) ? parseInt(NUMBER_IN.value) : undefined;
+
+/**
+ * Update the divs with the number information
+ */
+function updateArrayDiv() {
+    ARRAY_DIV.innerHTML = '';
+    ARR_ASC_DIV.innerHTML = '';
+    ARR_DES_DIV.innerHTML = '';
+    
+    numbers.forEach(n => {
+        ARRAY_DIV.innerHTML += n + ' ';
+    });
+    
+    let ascNumbers = [...numbers].sort((a,b) => a - b);
+    ascNumbers.forEach(n => {
+        ARR_ASC_DIV.innerHTML += n + ' ';
+    });
+    
+    let descNumbers = [...numbers].sort((a,b) => b - a);
+    descNumbers.forEach(n => {
+        ARR_DES_DIV.innerHTML += n + ' ';
+    });
+}
+
+/**
+ * Update the divs realted to the index and position, also the numer input
+ */
+function updateIndexPositionDivs(){
+    NUMBER_IN.value = numbers.length > 0 ? numbers[index] : '';
+    NUMBER_INDEX_DIV.innerHTML = index;
+    NUMBER_POSITION_DIV.innerHTML = index + 1;
+}
+
+/**
+ * Enable the accept and cancel buttons
+ */
+function enableAcceptCancelBtns() {
+    ACCEPT_BTN.hidden = false;
+    CANCEL_BTN.hidden = false;
+}
 
 /**
  * Disable all navigation and action buttos except list, accept, and cancel.
@@ -182,4 +225,54 @@ function enableAllButtons() {
     UPDATE_BTN.disabled = false;
     ACCEPT_BTN.hidden = true;
     CANCEL_BTN.hidden = true;
+}
+
+/**
+ * Open and build a windows with a table with all information
+ */
+function buildTableWindows() {
+    var tableWindows = window.open('', '_blank', 'width=600px,heigth=600px');
+
+    var table = `
+    <table>
+        <thead>
+            <tr>
+                <th>Array</th>
+                <th>Ascendente</th>
+                <th>Descendente</th>
+            </tr>
+        </thead>
+        <tbody>
+    `;
+    let ascNumbers = [...numbers].sort((a,b) => a - b);
+    let descNumbers = [...numbers].sort((a,b) => b - a);
+
+    for(var i = 0; i < numbers.length - 1; i++) {
+        table += `
+            <tr>
+                <td>${numbers[i]}</td>
+                <td>${ascNumbers[i]}</td>
+                <td>${descNumbers[i]}</td>
+            </tr>
+        `;
+    }
+
+    table += '</tbody></table>';
+
+    var html = `
+    <!DOCTYPE html>
+    <html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Tabla</title>
+    </head>
+    <body>
+        ${table} 
+        <button onclick="window.close()">Cerra Ventana</button>
+    </body>
+    </html>
+    `;
+    tableWindows.window.document.write(html);
+    tableWindows.window.document.close();
 }
