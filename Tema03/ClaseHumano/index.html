@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Humanos</title>
+</head>
+<body>
+    <!-- Human Data-->
+    <form>
+        <label>
+            <b>Nombre: </b><input type="text" id="name" required>
+        </label><br>
+        <label>
+            <b>Peso: </b><input type="text" id="weight" required>
+        </label><br>
+        <label>
+            <b>Edad: </b><input type="text" id="age" required>
+        </label><br>
+    </form>
+
+    <!-- Navigation buttons -->
+     <nav>
+        <input type="button" id="first" value="Primera">
+        <input type="button" id="previous" value="<< Anterior">
+        <input type="button" id="next" value="Siguiente >>">
+        <input type="button" id="last" value="Última">
+    </nav><br>
+
+    <!-- Human Actions -->
+    <div>
+        <input type="button" id="eat" value="Comer">
+        <input type="button" id="run" value="Correr">
+    </div>
+
+    <!-- Storage Actions -->
+    <div>
+        <input type="button" id="create-btn" value="Alta">
+        <input type="button" id="delete-btn" value="Baja">
+        <input type="button" id="update-btn" value="Modificación">
+        <input type="button" id="list-btn" value="Listado">
+        <input type="button" id="other-btn" value="Otro">
+        <input type="button" id="show-person-btn" value="Muestra una persona">
+        <!-- Confirm Options -->
+        <input type="button" id="confirm-btn" value="Aceptar" hidden>
+        <input type="button" id="cancel-btn" value="Cancelar" hidden>
+    </div>
+    <script type="module" src="./js/main.js"></script>
+</body>
+</html>
+<!-- Author Lua DeVV-->
