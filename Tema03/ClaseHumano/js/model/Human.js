@@ -46,6 +46,7 @@ export class Human {
 
     run() {
         this.weight--;
+        if(this.weight == 0) this.weight = 0;
     }
 
     category() {
