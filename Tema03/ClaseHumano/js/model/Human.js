@@ -21,32 +21,36 @@ export class Human {
     }
 
     set name(name) {
-        this.name = name.trim();
+        this._name = name.trim();
     }
 
     get name()  {
-        return this.name;
+        return this._name;
     }
 
     set weight(weight) {
-        this.weight = weight > 0 ? weight : 1;
+        this._weight = weight > 0 ? weight : 1;
     }
 
     get weight() {
-        return this.weight;
+        return this._weight;
     }
 
     set age(age) {
-        this.age = age >= 0 ? age : 0;
+        this._age = age >= 0 ? age : 0;
+    }
+
+    get age() {
+        return this._age;
     }
 
     eat() {
-        this.weight++;
+        this._weight++;
     }
 
     run() {
-        this.weight--;
-        if(this.weight == 0) this.weight = 0;
+        this._weight--;
+        if(this._weight == 0) this._weight = 0;
     }
 
     category() {

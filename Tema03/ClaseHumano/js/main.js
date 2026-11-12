@@ -41,7 +41,7 @@ if(DOM.navigation.last) {
 if(DOM.actions.eat) {
     DOM.actions.eat.addEventListener('click', () => {
         if(currentHuman) {
-            if(currentHuman) currentHuman.eat();
+            currentHuman.eat();
             updateArray()
         }
     });
@@ -49,8 +49,10 @@ if(DOM.actions.eat) {
 
 if(DOM.actions.run) {
     DOM.actions.run.addEventListener('click', () => {
-        if(currentHuman) currentHuman.run();
-        updateArray();
+        if(currentHuman) {
+            currentHuman.run();
+            updateArray();
+        }
     });
 }
 
@@ -104,6 +106,20 @@ if(DOM.controls.showPerson) {
 
 if(DOM.controls.confirm) {
     DOM.controls.confirm.addEventListener('click', () => {
+        switch(currentAction) {
+            case DOM.crud.create:
+                registerHuman();
+                break;
+            case DOM.crud.update:
+                modifyHuman();
+                break;
+            case DOM.crud.delete:
+                deleteHuman();
+                break;
+            default:
+                alert('La acción que tratas de realizar no es posible.');
+                break;
+        }
         disableConfirmCancelBtns();
         enableAllBtns();
     });
@@ -160,8 +176,85 @@ function updateArray() {
     if(currentIndex > HumanStorage.count()- 1) currentIndex = 0;
     else if(currentIndex < 0) currentIndex = HumanStorage.count() > 0 ? HumanStorage.count() - 1 : 0;
     if(HumanStorage.count() == 0) return;
-    currentHuman = HumanStorage.HUMANS[currentIndex];
+    currentHuman = HumanStorage.getByIndex(currentIndex);
+    DOM.inputs.deadname.value = currentHuman.name;
     DOM.inputs.name.value = currentHuman.name;
     DOM.inputs.weight.value = currentHuman.weight;
     DOM.inputs.age.value = currentHuman.age;
+}
+
+//CRUD FUNCTIONS
+function registerHuman() {
+    if(checkHumanData()) {
+        var isCreated = HumanStorage.createHuman(createHuman());
+        var message = isCreated
+            ? 'Creado con éxito'
+            : 'No se ha podido crear, es posible que ya exista un humano con ese nombre.';
+        alert(message);
+        if(isCreated) {
+            currentIndex++;
+            updateArray();
+        }
+    }
+}
+
+function modifyHuman() {
+    if(checkHumanData()) {
+        console.log(DOM.inputs.deadname.value);
+        var message = HumanStorage.updateHuman(createHuman(), DOM.inputs.deadname.value.trim())
+            ? 'Actualizao con éxito'
+            : 'No se ha podido actualizar, es posible que no exista un humano con ese nombre.';
+        alert(message);
+    }
+}
+
+function deleteHuman() {
+    var name = DOM.inputs.name.value.trim();
+    if(name === '') {
+        alert('El nombre no puede estar vacío para eliminar a una persona.');
+        return;
+    }
+    if(confirm(`¿Estás seguro de eliminar a ${name}? Esta acción es irreversible`)) {
+        var meesage = HumanStorage.deleteHuman(name)
+            ? name + ' eliminado con éxito.'
+            : name + ' no se ha podido eliminar';
+        alert(meesage);
+    }
+}
+
+function checkHumanData() {
+    var name = DOM.inputs.name.value.trim();
+    var weightStr = DOM.inputs.weight.value.trim();
+    var ageStr = DOM.inputs.age.value.trim();
+    var valid = true;
+    if(name === '') {
+        alert('El nombre no puede estar vacio.');
+        valid = false;
+    }
+    if(!weightStr.match(/^\d+$/)) {
+        alert('El peso debe ser un número entero y no puede estar vacío');
+        valid = false;
+    }
+    if(!ageStr.match(/^\d+$/)) {
+        alert('La edad debe ser un número entero positivo y no puede estar vacía.');
+        valid = false;
+    }
+    var weight = parseInt(weightStr);
+    var age = parseInt(ageStr);
+    if(weight < 1) {
+        alert('El peso no puede ser inferior a 1kg');
+        valid = false;
+    }
+    if(age < 0) {
+        alert('La edad no puede ser negativa.');
+        valid = false;
+    }
+    return valid;
+}
+
+function createHuman() {
+    var name = DOM.inputs.name.value.trim();
+    var weight = parseInt(DOM.inputs.weight.value);
+    var age = parseInt(DOM.inputs.age.value);
+    return new Human(name, weight, age);
 }

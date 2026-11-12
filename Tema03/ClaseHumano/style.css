@@ -5,6 +5,10 @@ body {
     text-align: center;
 }
 
+input {
+    margin: 5px 2px;
+}
+
 table, th, td{
     margin: 3px;
     border: 1px solid black;

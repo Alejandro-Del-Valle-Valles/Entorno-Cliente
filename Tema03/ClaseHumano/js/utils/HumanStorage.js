@@ -69,7 +69,7 @@ export class HumanStorage {
     }
 
     static getByName(name) {
-        return this.#HUMANS.find(h => h.name == name);
+        return this.#HUMANS.find(h => h.name === name);
     }
 
     static createHuman(human) {
@@ -82,9 +82,11 @@ export class HumanStorage {
         return created;
     }
 
-    static updateHuman(human) {
+    static updateHuman(human, deadname) {
         var updated = false;
-        var index = this.#HUMANS.indexOf(h => h.name == human.name);
+        if(this.#HUMANS.find(h => h.name === deadname)) return false;
+        var index = this.#HUMANS.indexOf(h => h.name === deadname);
+        console.log('Me ejecuto'); // No se ejecuta
         if(index > -1) {
             this.#HUMANS[index] = human;
             updated = true;
@@ -94,7 +96,7 @@ export class HumanStorage {
 
     static deleteHuman(name) {
         var deleted = false;
-        var index = this.#HUMANS.indexOf(h => h.name == name);
+        var index = this.#HUMANS.indexOf(h => h.name === name);
         if(index > -1) {
             this.#HUMANS.pop(index);
             deleted = true;
