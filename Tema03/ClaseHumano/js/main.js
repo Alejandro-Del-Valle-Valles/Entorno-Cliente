@@ -200,9 +200,8 @@ function registerHuman() {
 
 function modifyHuman() {
     if(checkHumanData()) {
-        console.log(DOM.inputs.deadname.value);
         var message = HumanStorage.updateHuman(createHuman(), DOM.inputs.deadname.value.trim())
-            ? 'Actualizao con éxito'
+            ? 'Actualizado con éxito'
             : 'No se ha podido actualizar, es posible que no exista un humano con ese nombre.';
         alert(message);
     }

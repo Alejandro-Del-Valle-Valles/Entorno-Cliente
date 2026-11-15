@@ -22,7 +22,8 @@ export const DOM = {
         create: document.getElementById('create-btn'),
         update: document.getElementById('update-btn'),
         delete: document.getElementById('delete-btn'),
-        list: document.getElementById('list-btn')
+        list: document.getElementById('list-btn'),
+        showSelectedPerson: document.getElementById('show-person-btn') 
     },
 
     controls: {

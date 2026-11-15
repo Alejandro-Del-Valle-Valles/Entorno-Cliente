@@ -73,34 +73,26 @@ export class HumanStorage {
     }
 
     static createHuman(human) {
-        var created = false;
-        var index = this.#HUMANS.indexOf(h => h.name == human.name);
-        if(index == -1) {
-            this.#HUMANS.push(human);
-            created = true;
-        }
-        return created;
+        var exists = this.#HUMANS.some(h => h.name === human.name);
+        if(exists) return false;
+        this.#HUMANS.push(human);
+        return true;
     }
 
     static updateHuman(human, deadname) {
-        var updated = false;
-        if(this.#HUMANS.find(h => h.name === deadname)) return false;
-        var index = this.#HUMANS.indexOf(h => h.name === deadname);
-        console.log('Me ejecuto'); // No se ejecuta
-        if(index > -1) {
-            this.#HUMANS[index] = human;
-            updated = true;
-        }
-        return updated;
+        var index = this.#HUMANS.findIndex(h => h.name === deadname);
+        if(index === -1) return false;
+        var existsName = this.#HUMANS.some(h => h.name === human.name && h.name !== deadname);
+        if(existsName) return false;
+        this.#HUMANS[index] = human;
+        return true;
     }
 
     static deleteHuman(name) {
-        var deleted = false;
-        var index = this.#HUMANS.indexOf(h => h.name === name);
-        if(index > -1) {
-            this.#HUMANS.pop(index);
-            deleted = true;
-        }
-        return deleted;
+        var index = this.#HUMANS.findIndex(h => h.name === name);
+        if(index === -1) return false;
+
+        this.#HUMANS.pop(index);
+        return true;
     }
 }
