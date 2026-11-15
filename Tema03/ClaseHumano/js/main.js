@@ -1,6 +1,6 @@
 import  { Human } from "./model/Human.js";
 import { HumanStorage } from "./utils/HumanStorage.js";
-import { DOM } from "./utils/DOM.js";
+import { DOM, buildTableWindows } from "./utils/DOM.js";
 
 let currentAction;
 let currentIndex = 0;
@@ -87,23 +87,19 @@ if(DOM.crud.delete) {
 
 if(DOM.crud.list) {
     DOM.crud.list.addEventListener('click', () => {
-        
-    });
-}
-
-//CONTROL ACTIONS
-if(DOM.controls.other) {
-    DOM.controls.other.addEventListener('click', () => {
-        
+        buildTableWindows(HumanStorage.getAll());
     });
 }
 
 if(DOM.controls.showPerson) {
-    DOM.controls.other.addEventListener('click', () => {
-        
+    DOM.controls.showPerson.addEventListener('click', () => {
+        if(currentHuman) {
+            var human = [HumanStorage.getByIndex(currentIndex)];
+            buildTableWindows(human);
+        }
     });
 }
-
+//CONTROL ACTIONS
 if(DOM.controls.confirm) {
     DOM.controls.confirm.addEventListener('click', () => {
         switch(currentAction) {
