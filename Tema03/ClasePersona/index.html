@@ -11,55 +11,57 @@
 <body>
     <!-- Person Data -->
     <div id="container">
-        <form>
-            <fieldset>
-                <legend>Persona</legend>
+        <header>
+            <h1>Formulario Persona</h1>
+        </header>
+        <div id="form">
+            <form>
+                <input type="text" id="deadname" hidden />
                 <label>
                     Nombre: <input type="text" id="name" />
                 </label><br />
                 <label>
-                    Apellidos: <input type="text" name="surname" />
+                    Apellidos: <input type="text" id="surname" />
                 </label><br>
                 <label>
-                    Dirección: <input type="text" name="direction" />
+                    Dirección: <input type="text" id="direction" />
                 </label><br>
                 <label>
-                    Fecha de Nacimiento: <input type="text" name="born-date" />
+                    Fecha de Nacimiento: (yyyy-MM-dd) <input type="text" id="born-date" />
                 </label><br>
                 <label>
-                    Género:
-                    Mujer: <input type="radio" name="gender" value="Sra">
-                    Hombre: <input type="radio" name="gender" value="Sr">
+                    Género:<br>
+                    <label for="women">Mujer:</label> <input type="radio" id="female" name="gender" value="Sra">
+                    <label for="men">Hombre:</label> <input type="radio" id="male" name="gender" value="Sr">
                 </label><br>
                 <label>
                     Código Postal: <input type="text" name="code" />
                 </label><br>
-            </fieldset>
-        </form>
-
-        <!-- Navigation Acctions -->
-        <div>
-            <fieldset>
-                <legend>Navegación</legend>
-                    <input type="button" id="first-btn" value="Primero">
-                    <input type="button" id="previous-btn" value="<< Anterior">
-                    <input type="button" id="next-btn" value="Siguiente >>">
-                    <input type="button" id="last-btn" value="Último">
-            </fieldset>
+            </form>
         </div>
 
-        <!-- CRUD Acctions -->
-        <div>
-            <fieldset>
-                <legend>Administración</legend>
-                    <input type="button" id="register-btn" value="Registrar">
-                    <input type="button" id="modify-btn" value="Modificar">
-                    <input type="button" id="delete-btn" value="Borrar">
-                    <input type="button" id="list-all-btn" value="Listar todos">
-                    <input type="button" id="list-current-btn" value="Listar Actual">
-                    <input type="button" id="accept-btn" value="Aceptar" hidden>
-                    <input type="button" id="cancel-btn" value="Cancelar" hidden>
-            </fieldset>
+        <div id="buttons">
+            <!-- Navigation Acctions -->
+            <nav>
+                <fieldset>
+                    <legend>Navegación</legend>
+                        <input type="button" id="first-btn" value="Primero">
+                        <input type="button" id="previous-btn" value="<< Anterior">
+                        <input type="button" id="next-btn" value="Siguiente >>">
+                        <input type="button" id="last-btn" value="Último">
+                </fieldset>
+            </nav>
+
+            <!-- CRUD Acctions -->
+            <div id="crud">
+                <input type="button" id="register-btn" value="Registrar">
+                <input type="button" id="modify-btn" value="Modificar">
+                <input type="button" id="delete-btn" value="Borrar">
+                <input type="button" id="list-all-btn" value="Listar todos">
+                <input type="button" id="list-current-btn" value="Listar Actual">
+                <input type="button" id="accept-btn" value="Aceptar" hidden>
+                <input type="button" id="cancel-btn" value="Cancelar" hidden>
+            </div>
         </div>
     </div>
     <script type="module" src="./js/main.js"></script>

@@ -1,3 +1,5 @@
+import { checkValidCode, checkValidDate } from "./Utils.js";
+
 export class Persona {
 
     __constructor(name, surname, direction, bornDate, gender, code) {
@@ -5,7 +7,7 @@ export class Persona {
         this.surname = surname;
         this.direction = direction;
         this.bornDate = bornDate;
-        this.gender = gender;
+        this.gender = gender; // IMPORTANT: true for male, false for female
         this.code = code;
     }
 
@@ -14,15 +16,17 @@ export class Persona {
     }
 
     set name(newName) {
-        this._name = newName;
+        newName = newName.trim();
+        this._name = newName === '' ? 'Desconcoido' : newName;
     }
 
     get surname() {
         return this._surname;
     }
 
-    set surname() {
-        this._surname = this.surname;
+    set surname(newSurname) {
+        newSurname = newSurname.trim();
+        this._surname = newSurname === '' ? 'Desconocido' : newSurname;
     }
 
     get direction() {
@@ -30,7 +34,8 @@ export class Persona {
     }
 
     set direction(newDirection) {
-        this._direction = newDirection;
+        newDirection = newDirection.trim();
+        this._direction = newDirection === '' ? 'Desconcodia' : newDirection;
     }
 
     get bornDate() {
@@ -38,9 +43,15 @@ export class Persona {
     }
 
     set bornDate(newBornDate) {
-        this._bornDate = newBornDate;
+        if(newCode.length === 5 && checkValidCode(newCode)) this._bornDate = newBornDate;
+        else {
+            var today = new Date();
+            today.setDate(today.getDate() - 1);
+            this._bornDate = today;
+        }
     }
 
+    // IMPORTANT: true for male, false for female
     get gender() {
         return this._gender;
     }
@@ -54,8 +65,23 @@ export class Persona {
     }
 
     set code(newCode) {
-        this._code = newCode;
+        newCode = newCode.trim();
+        this._code = newCode.length === 5 && checkValidCode(newCode) ? newCode : '00000';
     }
 
-    //TODO: Métodos señor señora y obtener edad
+    age() {
+        var today = new Date();
+        var years = this.bornDate.getFullYear() - today.getFullYear();
+        const bdayReached = this.bornDate.getMonth() < today.getMonth() ||
+        (
+            this.bornDate.getMonth() === today.getMonth() &&
+            this.bornDate.getDate() <= today.getDate()
+        );
+        if(bdayReached) years--;
+        return years;
+    }
+
+    pronom() {
+        return this.gender ? 'Sr' : 'Sra';
+    }
 }
