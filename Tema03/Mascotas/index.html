@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Simulacro Examen</title>
+</head>
+<body>
+    <h1>Mascotas</h1>
+    <label>
+        Nombre: <input type="text" id="nombre">
+    </label><br>
+    <label>
+        Peso: <input type="text" id="peso">
+    </label><br>
+    <label>
+        Fecha Adopción: (dd/MM/yyyy) <input type="text" id="adopcion">
+    </label><br>
+    <input type="button" id="primero" value="Primero" onclick="primeraMascota()">
+    <input type="button" id="anterior" value="Anterior" onclick="anteriorMascota()">
+    <input type="button" id="siguiente" value="Siguiente" onclick="siguienteMascota()">
+    <input type="button" id="ultimo" value="Ultimo" onclick="ultimaMascota()"><br>
+    <input type="button" id="registrar" value="Registra" onclick="registrarMascota()">
+    <input type="button" id="eliminar" value="Eliminar" onclick="eliminarMascota()">
+    <input type="button" id="listar" value="Listar" onclick="listarMascotas()">
+    <input type="button" id="listar-uno" value="Listar Actual" onclick="listarActual()">
+</body>
+<script src="script.js"></script>
+</html>
+<!-- Author: Lua DeVV -->

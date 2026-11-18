@@ -1,0 +1,8 @@
+table, th, td {
+    border: 1px solid black;
+    margin: 2px;
+}
+
+input {
+    margin: 2px;
+}
