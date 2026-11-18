@@ -2,7 +2,7 @@ import { checkValidCode, checkValidDate } from "./Utils.js";
 
 export class Persona {
 
-    __constructor(name, surname, direction, bornDate, gender, code) {
+    constructor(name, surname, direction, bornDate, gender, code) {
         this.name = name;
         this.surname = surname;
         this.direction = direction;
@@ -43,7 +43,7 @@ export class Persona {
     }
 
     set bornDate(newBornDate) {
-        if(newCode.length === 5 && checkValidCode(newCode)) this._bornDate = newBornDate;
+        if(checkValidDate(newBornDate)) this._bornDate = new Date(newBornDate.trim());
         else {
             var today = new Date();
             today.setDate(today.getDate() - 1);

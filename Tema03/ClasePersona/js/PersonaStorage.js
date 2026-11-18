@@ -31,7 +31,9 @@ export class PersonaStorage {
     }
 
     static getByIndex(index) {
-        return this.#PERSONS.length - 1 <= index ? this.#PERSONS[index] : undefined;
+        return index >= 0 && index < this.#PERSONS.length
+            ? this.#PERSONS[index]
+            : undefined;
     }
 
     static getByName(name) {

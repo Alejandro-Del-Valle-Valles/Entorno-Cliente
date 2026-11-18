@@ -32,14 +32,14 @@ export const MY_DOM = {
 };
 
 export function checkValidDate(dateIn) {
-    var date = new Date(dateIn);
-    return Number.isNaN(date) && date.getTime() < new Date();
+    var date = new Date(dateIn.trim());
+    return !Number.isNaN(date) && date.getTime() < new Date().getTime();
 }
 
 export function checkValidCode(code) {
-    var isValid = true;
-    for(var char in code) {
-        if(!NUMBERS.some(n => n == char)) isValid = false;
+    for(var i = 0; i < code.length; i++) {
+        console.log(typeof code[i]);
+        if(!NUMBERS.includes(code[i])) return false;
     }
-    return isValid;
+    return true;
 }
